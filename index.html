@@ -844,11 +844,13 @@ or
 
       var donationButton = document.getElementById('donation');
       addListener(donationButton, 'click', function() {
-        ga('send', 'event', 'button', 'click', 'donation-button');
+        ga('send', 'event', 'button', 'click', 'donation-button', 1);
+        console.log('donation-button')
       });
       var downloadButton = document.getElementById('download');
       addListener(downloadButton, 'click', function() {
-        ga('send', 'event', 'button', 'click', 'download-button');
+        ga('send', 'event', 'button', 'click', 'download-button', 1);
+        console.log('download-button')
       });
 
     </script>
