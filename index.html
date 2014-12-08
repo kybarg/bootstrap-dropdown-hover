@@ -842,6 +842,11 @@ or
       ga('create', 'UA-57445213-1', 'auto');
       ga('send', 'pageview');
 
+      function addListener(element, type, callback) {
+        if (element.addEventListener) element.addEventListener(type, callback);
+        else if (element.attachEvent) element.attachEvent('on' + type, callback);
+      }
+
       var donationButton = document.getElementById('donation');
       addListener(donationButton, 'click', function() {
         ga('send', 'event', 'button', 'click', 'donation-button', 1);
