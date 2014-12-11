@@ -1,4 +1,4 @@
-Bootsrap Dropdown On Hover
+Bootsrap 3 Dropdown On Hover
 ==========================
 
 Bootstrap based responsive mulltilevel dropdown navigation menu with fascinating animations
