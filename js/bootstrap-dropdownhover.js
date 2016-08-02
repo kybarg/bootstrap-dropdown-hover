@@ -210,15 +210,17 @@
 
   var resizeTimer;
   $(document).ready(function () {
-    $('[data-hover="dropdown"]').each(function () {
-      var $target = $(this)
-      Plugin.call($target, $target.data())
-    })
+    if($(window).width() >= 768) { // Breakpoin plugin is activated (768px)
+      $('[data-hover="dropdown"]').each(function () {
+        var $target = $(this)
+        Plugin.call($target, $target.data())
+      })
+    }
   })
   $(window).on('resize', function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function(){
-      if($(window).width() >= 768) // Breakpoin plugin is activated (728px)
+      if($(window).width() >= 768) // Breakpoin plugin is activated (768px)
         $('[data-hover="dropdown"]').each(function () {
           var $target = $(this)
           Plugin.call($target, $target.data())
