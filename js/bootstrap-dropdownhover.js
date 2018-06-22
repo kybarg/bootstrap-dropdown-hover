@@ -210,7 +210,7 @@
 
   var resizeTimer;
   $(document).ready(function () {
-    if($(window).width() >= 768) { // Breakpoin plugin is activated (768px)
+    if($(window).width() >= 992) { // Breakpoin plugin is activated (992px)
       $('[data-hover="dropdown"]').each(function () {
         var $target = $(this)
         Plugin.call($target, $target.data())
@@ -220,12 +220,12 @@
   $(window).on('resize', function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function(){
-      if($(window).width() >= 768) // Breakpoin plugin is activated (768px)
+      if($(window).width() >= 992) // Breakpoin plugin is activated (992px)
         $('[data-hover="dropdown"]').each(function () {
           var $target = $(this)
           Plugin.call($target, $target.data())
         })
-      else  // Disabling and clearing plugin data if screen is less 768px
+      else  // Disabling and clearing plugin data if screen is less 992px
         $('[data-hover="dropdown"]').each(function () {
           $(this).removeData('bs.dropdownhover')
           if($(this).hasClass('dropdown-toggle'))
