@@ -8,7 +8,7 @@
   // =========================
 
   var Dropdownhover = function (element, options) {
-    this.options    = options    
+    this.options    = options
     this.$element   = $(element)
 
     var that = this
@@ -46,7 +46,7 @@
     window.clearTimeout(Dropdownhover.TIMEOUT)
     // Close all dropdowns
     $('.dropdown').not($this.parents()).each(function(){
-         $(this).removeClass('open');
+        $(this).removeClass('open')
      });
 
     var effect = this.options.animations[0]
@@ -61,8 +61,15 @@
       var $dropdown = $this.next('.dropdown-menu')
       var relatedTarget = { relatedTarget: this }
 
-      $parent
-        .addClass('open')
+      $parent.addClass('open')
+      $this.attr('aria-expanded', true)
+
+      // Ensures that all menus that are closed have proper aria tagging.
+      $parent.siblings().each(function () {
+        if (!$(this).hasClass('open')) {
+          $(this).find('[data-hover="dropdown"]').attr('aria-expanded', false);
+        }
+      })
 
       var side = this.position($dropdown)
       side == 'top' ? effect = this.options.animations[2] :
@@ -86,7 +93,7 @@
     return false
   }
 
-  // Closes dropdown menu when moise is out of it
+  // Closes dropdown menu when mouse is out of it
   Dropdownhover.prototype.hide = function (_dropdownLink) {
 
     var that = this
@@ -94,6 +101,7 @@
     var $parent  = $this.parent()
     Dropdownhover.TIMEOUT = window.setTimeout(function () {
       $parent.removeClass('open')
+      $this.attr('aria-expanded', false)
     }, Dropdownhover.DELAY)
   }
 
@@ -104,23 +112,23 @@
 
     // Reset css to prevent incorrect position
     dropdown.css({ bottom: '', left: '', top: '', right: '' }).removeClass('dropdownhover-top')
-  
+
     var viewport = {
       top : win.scrollTop(),
       left : win.scrollLeft()
     };
     viewport.right = viewport.left + win.width();
     viewport.bottom = viewport.top + win.height();
-    
+
     var bounds = dropdown.offset();
       bounds.right = bounds.left + dropdown.outerWidth();
       bounds.bottom = bounds.top + dropdown.outerHeight();
     var position = dropdown.position();
       position.right = bounds.left + dropdown.outerWidth();
       position.bottom = bounds.top + dropdown.outerHeight();
-  
+
     var side = ''
-   
+
     var isSubnow = dropdown.parents('.dropdown-menu').length
 
     if(isSubnow) {
@@ -207,10 +215,9 @@
 
   // APPLY TO STANDARD DROPDOWNHOVER ELEMENTS
   // ===================================
-
   var resizeTimer;
   $(document).ready(function () {
-    if($(window).width() >= 768) { // Breakpoin plugin is activated (768px)
+    if($(window).width() >= 992) { // Breakpoin plugin is activated (992px)
       $('[data-hover="dropdown"]').each(function () {
         var $target = $(this)
         Plugin.call($target, $target.data())
@@ -220,16 +227,16 @@
   $(window).on('resize', function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function(){
-      if($(window).width() >= 768) // Breakpoin plugin is activated (768px)
+      if($(window).width() >= 992) // Breakpoin plugin is activated (992px)
         $('[data-hover="dropdown"]').each(function () {
           var $target = $(this)
           Plugin.call($target, $target.data())
         })
-      else  // Disabling and clearing plugin data if screen is less 768px
+      else  // Disabling and clearing plugin data if screen is less 992px
         $('[data-hover="dropdown"]').each(function () {
           $(this).removeData('bs.dropdownhover')
           if($(this).hasClass('dropdown-toggle'))
-            $(this).parent('.dropdown').find('.dropdown').andSelf().off('mouseenter.bs.dropdownhover mouseleave.bs.dropdownhover')
+            $(this).parent('.dropdown').find('.dropdown').addBack().off('mouseenter.bs.dropdownhover mouseleave.bs.dropdownhover')
           else
             $(this).find('.dropdown').off('mouseenter.bs.dropdownhover mouseleave.bs.dropdownhover')
         })
