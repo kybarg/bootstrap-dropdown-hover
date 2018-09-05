@@ -99,10 +99,11 @@
     var that = this
     var $this = $(_dropdownLink)
     var $parent  = $this.parent()
+    var $this_delay = $this.data('dropdown-hover-delay');
     Dropdownhover.TIMEOUT = window.setTimeout(function () {
       $parent.removeClass('open')
       $this.attr('aria-expanded', false)
-    }, Dropdownhover.DELAY)
+    }, ($this_delay ? $this_delay : Dropdownhover.DELAY))
   }
 
   // Calculating position of dropdown menu
