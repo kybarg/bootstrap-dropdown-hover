@@ -5,7 +5,7 @@
  * Licensed under MIT (https://github.com/kybarg/bootstrap-dropdown-hover/blob/master/LICENSE)
  * ======================================================================== */
 
-+function ($) {
++function($) {
   'use strict';
 
   // DROPDOWN CLASS DEFINITION
@@ -13,8 +13,8 @@
 
   var backdrop = '.dropdown-backdrop';
 
-  var Dropdownhover = function (element, options) {
-    this.options = options;
+  var Dropdownhover = function(element, options) {
+    this.options  = options;
     this.$element = $(element);
 
     var that = this;
@@ -39,7 +39,7 @@
     } else {
 
       this.dropdowns.each(function() {
-        $(this).children('a, button').on('click.bs.dropdownhover', function (e) {
+        $(this).children('a, button').on('click.bs.dropdownhover', function(e) {
           var isActive = $(this).parent().hasClass('open');
           isActive ? that.hide($(this)) : that.show($(this))
         })
@@ -50,12 +50,12 @@
   };
 
   Dropdownhover.TRANSITION_DURATION = 300;
-  Dropdownhover.DELAY = 150;
+  Dropdownhover.DELAY               = 150;
   Dropdownhover.TIMEOUT_SHOW;
   Dropdownhover.TIMEOUT_HIDE;
 
   Dropdownhover.DEFAULTS = {
-    onClick: false,
+    onClick:    false,
     animations: [
       'fadeInDown',
       'fadeInRight',
@@ -92,8 +92,8 @@
 
     $(backdrop).remove();
     $('[data-hover="dropdown"]').each(function() {
-      var $this = $(this);
-      var $parent = getParent($this);
+      var $this         = $(this);
+      var $parent       = getParent($this);
       var relatedTarget = { relatedTarget: this };
 
       if (!$parent.hasClass('open')) {
@@ -130,10 +130,10 @@
    *
    * @returns {boolean}
    */
-  Dropdownhover.prototype.show = function (_dropdownLink) {
+  Dropdownhover.prototype.show = function(_dropdownLink) {
 
-    var that = this;
-    var $this = $(_dropdownLink);
+    var that              = this;
+    var $this             = $(_dropdownLink);
     var $this_hover_delay = $this.data('dropdown-hover-delay');
 
     window.clearTimeout(Dropdownhover.TIMEOUT_HIDE);
@@ -151,7 +151,7 @@
         return;
       }
 
-      var $parent = $this.parent();
+      var $parent  = $this.parent();
       var isActive = $parent.hasClass('open');
 
       if (!isActive) {
@@ -218,8 +218,8 @@
    */
   Dropdownhover.prototype.hide = function(_dropdownLink) {
 
-    var $this = $(_dropdownLink);
-    var $parent = $this.parent();
+    var $this             = $(_dropdownLink);
+    var $parent           = $this.parent();
     var $this_hover_delay = $this.data('dropdown-hover-delay');
 
     window.clearTimeout(Dropdownhover.TIMEOUT_SHOW);
@@ -244,13 +244,18 @@
     var win = $(window);
 
     // Reset css to prevent incorrect position
-    dropdown.css({ bottom: '', left: '', top: '', right: '' }).removeClass('dropdownhover-top');
+    dropdown.css({
+      bottom: '',
+      left:   '',
+      top:    '',
+      right:  ''
+    }).removeClass('dropdownhover-top');
 
-    var viewport = {
-      top: win.scrollTop(),
+    var viewport    = {
+      top:  win.scrollTop(),
       left: win.scrollLeft()
     };
-    viewport.right = viewport.left + win.width();
+    viewport.right  = viewport.left + win.width();
     viewport.bottom = viewport.top + win.height();
 
     var bounds = dropdown.offset();
@@ -259,10 +264,10 @@
       side = 'right';
       return side;
     }
-    bounds.right = bounds.left + dropdown.outerWidth();
-    bounds.bottom = bounds.top + dropdown.outerHeight();
-    var position = dropdown.position();
-    position.right = bounds.left + dropdown.outerWidth();
+    bounds.right    = bounds.left + dropdown.outerWidth();
+    bounds.bottom   = bounds.top + dropdown.outerHeight();
+    var position    = dropdown.position();
+    position.right  = bounds.left + dropdown.outerWidth();
     position.bottom = bounds.top + dropdown.outerHeight();
 
     var side = '';
@@ -281,32 +286,50 @@
 
       if (bounds.left < viewport.left) {
         side = 'right';
-        dropdown.css({ left: '100%', right: 'auto' }).addClass('dropdownhover-right').removeClass('dropdownhover-left')
+        dropdown.css({
+          left:  '100%',
+          right: 'auto'
+        }).addClass('dropdownhover-right').removeClass('dropdownhover-left')
       } else if (bounds.right > viewport.right) {
         side = 'left';
-        dropdown.css({ left: 'auto', right: '100%' }).removeClass('dropdownhover-right').addClass('dropdownhover-left')
+        dropdown.css({
+          left:  'auto',
+          right: '100%'
+        }).removeClass('dropdownhover-right').addClass('dropdownhover-left')
       }
 
       if (bounds.bottom > viewport.bottom) {
-        dropdown.css({ bottom: 'auto', top: -(bounds.bottom - viewport.bottom) })
+        dropdown.css({
+          bottom: 'auto',
+          top:    -(bounds.bottom - viewport.bottom)
+        })
       } else if (bounds.top < viewport.top) {
-        dropdown.css({ bottom: -(viewport.top - bounds.top), top: 'auto' })
+        dropdown.css({
+          bottom: -(viewport.top - bounds.top),
+          top:    'auto'
+        })
       }
 
     } else { // Defines special position styles for root dropdown menu
 
-      var parentLi = dropdown.parent('.dropdown');
-      var pBounds = parentLi.offset();
-      pBounds.right = pBounds.left + parentLi.outerWidth();
+      var parentLi   = dropdown.parent('.dropdown');
+      var pBounds    = parentLi.offset();
+      pBounds.right  = pBounds.left + parentLi.outerWidth();
       pBounds.bottom = pBounds.top + parentLi.outerHeight();
 
       if (bounds.right > viewport.right) {
-        dropdown.css({ left: -(bounds.right - viewport.right), right: 'auto' })
+        dropdown.css({
+          left:  -(bounds.right - viewport.right),
+          right: 'auto'
+        })
       }
 
       if (bounds.bottom > viewport.bottom && (pBounds.top - viewport.top) > (viewport.bottom - pBounds.bottom) || dropdown.position().top < 0) {
         side = 'top';
-        dropdown.css({ bottom: '100%', top: 'auto' }).addClass('dropdownhover-top').removeClass('dropdownhover-bottom')
+        dropdown.css({
+          bottom: '100%',
+          top:    'auto'
+        }).addClass('dropdownhover-top').removeClass('dropdownhover-bottom')
       } else {
         side = 'bottom';
         dropdown.addClass('dropdownhover-bottom')
@@ -330,8 +353,8 @@
    */
   function Plugin(option) {
     return this.each(function() {
-      var $this = $(this);
-      var data = $this.data('bs.dropdownhover');
+      var $this    = $(this);
+      var data     = $this.data('bs.dropdownhover');
       var settings = $this.data();
 
       if ($this.data('animations') !== undefined && $this.data('animations') !== null) {
@@ -349,7 +372,7 @@
 
   var old = $.fn.dropdownhover;
 
-  $.fn.dropdownhover = Plugin;
+  $.fn.dropdownhover             = Plugin;
   $.fn.dropdownhover.Constructor = Dropdownhover;
 
 
