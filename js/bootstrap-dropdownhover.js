@@ -19,8 +19,12 @@
 
     var that = this;
 
-    // Defining if navigation tree or single dropdown
-    this.dropdowns = this.$element.hasClass('dropdown-toggle') ? this.$element.parent().find('.dropdown-menu').parent('.dropdown') : this.$element.find('.dropdown');
+    // defining if navigation tree or single dropdown
+    if (this.$element.hasClass('dropdown-toggle')) {
+      this.dropdowns = this.$element.parent().find('.dropdown-menu').parent('.dropdown');
+    } else {
+      this.dropdowns = this.$element.find('.dropdown');
+    }
 
     if (!options.onClick) {
 
@@ -67,7 +71,7 @@
   /**
    * @param $this
    *
-   * @returns {{length}|*|jQuery}
+   * @returns {*}
    */
   function getParent($this) {
     var selector = $this.attr('data-target');
@@ -103,7 +107,7 @@
       if (
           e
           &&
-          e.type == 'click'
+          e.type === 'click'
           &&
           /input|textarea/i.test(e.target.tagName)
           &&
@@ -124,7 +128,7 @@
   }
 
   /**
-   * Opens dropdown menu when mouse is over the trigger element
+   * Opens dropdown menu when mouse is over the trigger element.
    *
    * @param _dropdownLink
    *
@@ -140,7 +144,7 @@
 
     Dropdownhover.TIMEOUT_SHOW = window.setTimeout(function() {
 
-      // Close all dropdowns
+      // close all dropdowns
       $('.dropdown').not($this.parents()).each(function() {
         $(this).removeClass('open')
       });
@@ -212,7 +216,7 @@
   };
 
   /**
-   * Closes dropdown menu when mouse is out of it
+   * Closes dropdown menu when mouse is out of it.
    *
    * @param _dropdownLink
    */
@@ -233,7 +237,7 @@
   };
 
   /**
-   * Calculating position of dropdown menu
+   * Calculating position of dropdown menu.
    *
    * @param dropdown
    *
@@ -243,7 +247,7 @@
 
     var win = $(window);
 
-    // Reset css to prevent incorrect position
+    // reset css to prevent incorrect position
     dropdown.css({
       bottom: '',
       left:   '',
@@ -310,7 +314,7 @@
         })
       }
 
-    } else { // Defines special position styles for root dropdown menu
+    } else { // defines special position styles for root dropdown menu
 
       var parentLi   = dropdown.parent('.dropdown');
       var pBounds    = parentLi.offset();
@@ -324,7 +328,13 @@
         })
       }
 
-      if (bounds.bottom > viewport.bottom && (pBounds.top - viewport.top) > (viewport.bottom - pBounds.bottom) || dropdown.position().top < 0) {
+      if (
+          bounds.bottom > viewport.bottom
+          &&
+          (pBounds.top - viewport.top) > (viewport.bottom - pBounds.bottom)
+          ||
+          dropdown.position().top < 0
+      ) {
         side = 'top';
         dropdown.css({
           bottom: '100%',
@@ -375,15 +385,12 @@
   $.fn.dropdownhover             = Plugin;
   $.fn.dropdownhover.Constructor = Dropdownhover;
 
-
   // DROPDOWNHOVER NO CONFLICT
   // ====================
-
   $.fn.dropdownhover.noConflict = function() {
     $.fn.dropdownhover = old;
     return this
   };
-
 
   // APPLY TO STANDARD DROPDOWNHOVER ELEMENTS
   // ===================================
