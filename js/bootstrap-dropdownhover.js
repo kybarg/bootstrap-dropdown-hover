@@ -322,10 +322,22 @@
       pBounds.bottom = pBounds.top + parentLi.outerHeight();
 
       if (bounds.right > viewport.right) {
-        dropdown.css({
-          left:  -(bounds.right - viewport.right),
-          right: 'auto'
-        })
+        var styleTmp = dropdown.attr('style');
+        // keep css if "auto !important" is used
+        if (
+            styleTmp
+            &&
+            (
+                styleTmp.indexOf('left: auto !important;') === -1
+                &&
+                styleTmp.indexOf('right: auto !important;') === -1
+            )
+        ) {
+          dropdown.css({
+            left:  -(bounds.right - viewport.right),
+            right: 'auto'
+          });
+        }
       }
 
       if (
