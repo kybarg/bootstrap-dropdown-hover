@@ -2,7 +2,7 @@
   "name": "bootstrap-dropdown-hover",
   "version": "1.1.0",
   "description": "Bootstrap based responsive mulltilevel dropdown navigation menu with fascinating animations",
-  "main": "boootstrap-dropdownhover.js",
+  "main": "js/boootstrap-dropdownhover.js",
   "scripts": {
     "minify:css": "minify ./css/animate.css > ./css/animate.min.css && minify ./css/bootstrap-dropdownhover.css > ./css/bootstrap-dropdownhover.min.css",
     "minify:js": "minify ./js/bootstrap-dropdownhover.js > ./js/bootstrap-dropdownhover.min.js",
