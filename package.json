@@ -1,6 +1,6 @@
 {
   "name": "@kybarg/bootstrap-dropdown-hover",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Bootstrap based responsive mulltilevel dropdown navigation menu with fascinating animations",
   "main": "js/boootstrap-dropdownhover.js",
   "scripts": {
