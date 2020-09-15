@@ -3,15 +3,26 @@
   "version": "1.1.0",
   "description": "Bootstrap based responsive mulltilevel dropdown navigation menu with fascinating animations",
   "main": "boootstrap-dropdownhover.js",
+  "scripts": {
+    "minify:css": "minify ./css/animate.css > ./css/animate.min.css && minify ./css/bootstrap-dropdownhover.css > ./css/bootstrap-dropdownhover.min.css",
+    "minify:js": "minify ./js/bootstrap-dropdownhover.js > ./js/bootstrap-dropdownhover.min.js",
+    "bundle": "npm run minify:js && npm run minify:css"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kybarg/bootstrap-dropdown-hover.git"
   },
-  "keywords": ["multilevel","boostrap3"],
+  "keywords": [
+    "multilevel",
+    "boostrap3"
+  ],
   "author": "kybarg",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kybarg/bootstrap-dropdown-hover/issues"
   },
-  "homepage": "https://github.com/kybarg/bootstrap-dropdown-hover#readme"
+  "homepage": "https://github.com/kybarg/bootstrap-dropdown-hover#readme",
+  "devDependencies": {
+    "minify": "^5.1.1"
+  }
 }
